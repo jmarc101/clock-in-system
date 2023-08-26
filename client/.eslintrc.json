@@ -1,8 +1,9 @@
 
 {
-  "extends": ["react-app", "prettier"],
+  "extends": ["airbnb", "react-app", "prettier"],
   "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "react/prop-types": "off"
   }
 }

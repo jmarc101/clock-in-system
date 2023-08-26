@@ -48,11 +48,35 @@ app.get('/admins', async (_, res) => {
 
 });
 
+// get employee last work shift
+app.get('/employees/:employeeid/workshift', async (req, res) => {
+    const { employeeid } = req.params;
+
+    if (!employeeid) {
+        return res.status(400).json({ error: "employeeid is required." });
+    }
+
+    try {
+        const workshift = await prisma.workshift.findfirst({
+            where: {
+                employeeid: parseint(employeeid),
+            },
+            orderby: {
+                start: 'desc',
+            },
+        });
+
+        res.json(workshift);
+    } catch (error) {
+        res.status(500).json({ error: "an error occurred fetching the work shift." });
+    }
+});
+
 app.get('/employees/:employeeId/workshifts', async (req, res) => {
     const { startDate, endDate } = req.query;
     const { employeeId } = req.params;
 
-    if (!startDate || !endDate || !employeeId) {
+    if (startDate || !endDate || !employeeId) {
         return res.status(400).json({ error: "startDate, endDate, and employeeId are required." });
     }
 
@@ -82,9 +106,8 @@ app.post('/employee', async (req, res) => {
 
 app.post('/employee/:employeeId/workshift', async (req, res) => {
     const { employeeId } = req.params;
-    const { date } = req.body;
 
-    if (!employeeId || !date) {
+    if (!employeeId) {
         return res.status(400).json({ error: "employeeId and date are required." });
     }
 
@@ -95,14 +118,14 @@ app.post('/employee/:employeeId/workshift', async (req, res) => {
 
         if (workshiftWithoutEndDate) {
             const endedShift = await prisma.workShift
-                .update({where: {id: workshiftWithoutEndDate.id}, data: {end: new Date(date)}});
+                .update({where: {id: workshiftWithoutEndDate.id}, data: {end: new Date()}});
 
             return res.status(200).json(endedShift);
         }
 
         // Creates a new work shift if the last one has an end date
-        const workshift = await prisma.workshift
-            .create({data: {employeeId: parseInt(employeeId), start: new Date(date)}});
+        const workshift = await prisma.workShift
+            .create({data: {employeeId: parseInt(employeeId), start: new Date()}});
 
         res.status(200).json(workshift);
     } catch (error) {
@@ -177,7 +200,7 @@ app.delete('/workshift/:workshiftId', async (req, res) => {
 
 
 const PORT = 4000;
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
 
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server is running on http:0.0.0.0:${PORT}`);//0.0.0.0:);
+});
