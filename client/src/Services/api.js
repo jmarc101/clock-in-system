@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://192.168.2.94:4000";
+const BASE_URL = "http://server:4000";
 
 const api = axios.create({
     baseURL: BASE_URL,
@@ -11,7 +11,10 @@ const api = axios.create({
 
 const handleResponse = responsePromise =>
     responsePromise
-        .then(response => response.data)
+        .then(response => {
+            console.log(response.data);
+            return response.data;
+        })
         .catch(error => {
             console.error("🚨🚨 API call failed:", error);
             throw error;

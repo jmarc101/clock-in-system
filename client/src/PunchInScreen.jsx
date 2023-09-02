@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import './PunchInScreen.css';
-import { Button, Typography } from '@mui/material';
-import { createOrEndEmployeeWorkShift, getEmployees } from './Services/api';
+import React, { useState, useEffect } from "react";
+import "./PunchInScreen.css";
+import { Button, Typography } from "@mui/material";
+import { createOrEndEmployeeWorkShift, getEmployees } from "./Services/api";
 
 function PunchButton({ label, onClick }) {
     const clicked = () => {
@@ -24,33 +24,33 @@ function toggleFullscreen() {
 }
 
 function PunchBox() {
-    const [punchCode, setPunchCode] = useState('');
+    const [punchCode, setPunchCode] = useState("");
     const [employees, setEmployees] = useState([{}]);
-    const [message, setMessage] = useState('');
+    const [message, setMessage] = useState("");
 
     const onNumberClick = btnLabel =>
         punchCode.length < 4 ? setPunchCode(punchCode + btnLabel) : undefined;
 
-    const onClearClick = () => setPunchCode('');
+    const onClearClick = () => setPunchCode("");
     const clearEmployeeAndMessageInXSeconds = secondes => {
         setTimeout(() => {
-            setMessage('');
+            setMessage("");
         }, secondes * 1000);
     };
 
     const onOkClick = async () => {
         const emp = employees.find(e => e.code === punchCode);
         if (!emp) {
-            setMessage('Code Invalide');
+            setMessage("Code Invalide");
             clearEmployeeAndMessageInXSeconds(2);
-            setPunchCode('');
+            setPunchCode("");
             return;
         }
 
         clearEmployeeAndMessageInXSeconds(5);
         const shift = await createOrEndEmployeeWorkShift(emp.id);
-        setMessage(`${shift.end ? 'Bye' : 'Bonjour'} ${emp.name}`);
-        setPunchCode('');
+        setMessage(`${shift.end ? "Bye" : "Bonjour"} ${emp.name}`);
+        setPunchCode("");
     };
 
     useEffect(() => {
@@ -93,8 +93,12 @@ function PunchBox() {
 }
 
 function PunchInScreen() {
+    const emps = [];
+    getEmployees().then(data => emps.push(data[0]));
+
     return (
         <div className="punch-in-screen">
+            <div>{emps.name}</div>
             <PunchBox />
         </div>
     );
