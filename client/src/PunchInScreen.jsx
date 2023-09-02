@@ -8,9 +8,10 @@ function PunchButton({ label, onClick }) {
         onClick();
     };
     return (
-        <Button onClick={clicked} variant="contained" className="punch-btn">
-            <Typography variant="h4">{label}</Typography>
-        </Button>
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+        <button type="button" onClick={clicked} className="punch-btn">
+            <h4>{label}</h4>
+        </button>
     );
 }
 
@@ -59,9 +60,12 @@ function PunchBox() {
 
     return (
         <div className="punch">
-            <Typography variant="h2" className="message">
-                {message}
-            </Typography>
+            <div className="punchcode">
+                <span className="code-star">{punchCode.length >= 1 ? "*" : ""}</span>
+                <span className="code-star">{punchCode.length >= 2 ? "*" : ""}</span>
+                <span className="code-star">{punchCode.length >= 3 ? "*" : ""}</span>
+                <span className="code-star">{punchCode.length === 4 ? "*" : ""}</span>
+            </div>
             <div className="punch-box">
                 <div className="punch-row">
                     <PunchButton label="1" onClick={() => onNumberClick(1)} />
@@ -81,13 +85,10 @@ function PunchBox() {
                 <div className="punch-row">
                     <PunchButton label="Clear" onClick={onClearClick} />
                     <PunchButton label="0" onClick={() => onNumberClick(0)} />
-
                     <PunchButton label="Ok" onClick={onOkClick} />
                 </div>
             </div>
-            <div className="punchcode">
-                <Typography variant="h2">{punchCode}</Typography>
-            </div>
+            <div className="message">{message}</div>
         </div>
     );
 }
@@ -100,6 +101,9 @@ function PunchInScreen() {
         <div className="punch-in-screen">
             <div>{emps.name}</div>
             <PunchBox />
+            <button onClick={toggleFullscreen} type="button" className="fullscreen-btn">
+                Pleine écran
+            </button>
         </div>
     );
 }

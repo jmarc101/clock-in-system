@@ -1,10 +1,25 @@
+h4 {
+    font-size: 2.5em;
+    font-weight: 400;
+}
 .punch-in-screen {
+    position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
     width: 100%;
+}
+.fullscreen-btn{
+    position: relative;
+    top: -95%;
+    left: -45%;
+    padding: 7px;
+    background-color: var(--color-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--bg-dark);
+    border-radius: 5px;
 }
 
 .punch {
@@ -18,17 +33,32 @@
 }
 
 .punchcode {
-    height: 20%;
-    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content:space-around;
+    border: 2px solid var(--color-secondary);
+    margin: 2% 0;
+    padding: 0 2%;
+    width: 15%;
+    height: 10%;
+    border-radius: 50px;
+}
+.code-star {
+    width: 20px;
+    font-size: 3em;
+    color: color(--text-primary);
+    padding-top: 10px;
 }
 
 .message {
     height: 10%;
     width: 100%;
     padding: 20px 0;
+    font-size: 3em;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--text-primary);
 }
 
 .punch-box {
@@ -51,9 +81,37 @@
     height: 25%;
 }
 
+.divider{
+    height: 80%;
+    width:5px;
+    border: none;
+    background-color: var(--color-secondary);
+}
 
 .punch-btn {
-    background-color: red;
+    position: relative;
     height: 100%;
     width: 100%;
+    color: var(--text-primary);
+    background-color: var(--bg-light);
+    border:none;
+}
+
+.punch-row:not(:last-child) > .punch-btn:before {
+    content:"";
+    position: absolute;
+    left: 15%;
+    bottom: 0;
+    width: 70%;
+    border-bottom: 2px solid var(--color-secondary);
+}
+
+
+.punch-btn:not(:last-child):after {
+    content:"";
+    position: absolute;
+    right:0;
+    top:15%;
+    height:70%;
+    border-right: 3px solid var(--color-secondary);
 }

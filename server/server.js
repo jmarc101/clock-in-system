@@ -9,6 +9,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/employees', async (_, res) => {
+    console.log('🚨🔥 get employees was called!');
    const users = await prisma.employee.findMany();
    res.json(users);
 });

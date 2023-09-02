@@ -13,8 +13,6 @@ services:
       context: ./server
     environment:
       - DATABASE_URL=postgresql://postgres:martin_admin@postgres:5432/postgres
-    ports:
-      - 4000:4000
     depends_on:
       - postgres
 
@@ -31,8 +29,6 @@ services:
     build:
       dockerfile: Dockerfile.prisma
       context: ./server
-    ports:
-      - 5555:5555
     environment:
       - DATABASE_URL=postgresql://postgres:martin_admin@postgres:5432/postgres
     depends_on:
