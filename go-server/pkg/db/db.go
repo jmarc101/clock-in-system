@@ -9,28 +9,31 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-// We set DB here as global variable to be able to set it manually.
-// This is going to be useful for making mock db for testing.
 var DB *gorm.DB
 
-// Connect to DB use DATABASE_URL from environment
-func Initialize() {
-    databaseUrl := os.Getenv("DATABASE_URL")
-    db, err := gorm.Open(sqlite.Open(databaseUrl), &gorm.Config{
-        Logger: logger.Default.LogMode(logger.Info), // Log all SQL queries
+// Initialize establishes a connection to the database using the DATABASE_URL environment variable.
+func Initialize() error {
+    return initializeDB(os.Getenv("DATABASE_URL"))
+}
+
+// InitializeInMemoryDB sets up a new in-memory database.
+func InitializeInMemoryDB() error {
+    return initializeDB("file::memory:?cache=shared")
+}
+
+func initializeDB(dataSourceName string) error {
+    db, err := gorm.Open(sqlite.Open(dataSourceName), &gorm.Config{
+        Logger: logger.Default.LogMode(logger.Info),
     })
     if err != nil {
-        panic(fmt.Sprintf("failed to connect database: %v", err))
+        return fmt.Errorf("failed to connect database: %v", err)
     }
 
     if err := db.AutoMigrate(&models.Employee{}, &models.WorkShift{}); err != nil {
-        fmt.Println("DATABASE_URL:", databaseUrl)
+        return fmt.Errorf("error with AutoMigrate: %v", err)
     }
-    DB = db
-}
 
-// set global DB to params DB
-func SetDB(database *gorm.DB) {
-    DB = database
+    DB = db
+    return nil
 }
 
