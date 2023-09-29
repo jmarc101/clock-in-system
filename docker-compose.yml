@@ -6,6 +6,7 @@ services:
       - POSTGRES_PASSWORD=martin_admin
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    restart: always
 
   server:
     build:
@@ -13,17 +14,21 @@ services:
       context: ./server
     environment:
       - DATABASE_URL=postgresql://postgres:martin_admin@postgres:5432/postgres
+    ports:
+      - 4000:4000
     depends_on:
       - postgres
+    restart: always
 
   client:
     build:
       dockerfile: Dockerfile
       context: ./client
     ports:
-      - 3000:80
+      - 8080:80
     depends_on:
       - server
+    restart: always
 
   prisma:
     build:
@@ -31,8 +36,11 @@ services:
       context: ./server
     environment:
       - DATABASE_URL=postgresql://postgres:martin_admin@postgres:5432/postgres
+    ports:
+      - 5555:5555
     depends_on:
       - server
+    restart: always
 
 volumes:
    postgres-data:

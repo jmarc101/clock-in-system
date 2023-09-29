@@ -1,0 +1,21 @@
+.summary-cont {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    padding: 20px;
+    }
+
+.info-select {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    align-items: center;
+    width: 100%;
+    }
+
+.select-control {
+    width: 300px;
+    
+}
+ 

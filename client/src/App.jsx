@@ -1,12 +1,19 @@
 import React from "react";
+import { Routes, Route, Outlet } from "react-router-dom";
 import "./App.css";
-import PunchInScreen from "./PunchInScreen";
+import PunchInScreen from "./components/PunchInScreen";
+import NotFound from "./components/NotFound";
+import Summary from "./components/Summary";
 
 function App() {
     return (
-        <div className="App">
-            <PunchInScreen />
-        </div>
+        <Routes>
+            <Route path="/" element={<Outlet />}>
+                <Route index element={<PunchInScreen />} />
+                <Route path="summary" element={<Summary />} />
+                <Route path="*" element={<NotFound />} />
+            </Route>
+        </Routes>
     );
 }
 

@@ -1,0 +1,82 @@
+h4 {
+    font-size: 2.5em;
+    font-weight: 400;
+}
+
+.punch-in-screen {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.fullscreen-btn{
+    position: relative;
+    top: -90%;
+    left: -40%;
+    padding: 7px;
+}
+
+.punch {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.punchcode {
+    display: flex;
+    gap: 20px;
+    height: 10%;
+    align-items: center;
+    padding-top: 40px;
+}
+
+.code-star {
+    width: 20px;
+    font-size: 5em;
+    color: var(--bg-onyx);
+}
+
+.message {
+    width: 100%;
+    padding: 20px 0;
+    font-size: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-primary);
+    height: 20%;
+}
+
+.punch-box {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    aspect-ratio: 1/1;
+}
+
+.punch-row {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 25%;
+}
+
+.fab {
+    height: 150px !important;
+    width: 150px !important;
+    font-size: 2.5em !important;
+}
+
