@@ -1,49 +1,51 @@
-# clock-in-system
+# Clock-In System
+
+A simple clock-in system to track employee work shifts.
+
+## Project Overview
+
+The system is composed of a server component built using `Express`, `Prisma` for database interaction, and a client-side component built using `React`.
+
+The server offers RESTful APIs for CRUD operations related to employees and their respective work shifts.
+
+The client provides a user-friendly interface to record work shifts, view summaries, and perform related tasks.
+
+## Features
+
+1. **Punch-In/Out System**: Employees can easily clock-in and clock-out using their unique codes.
+2. **Work Shift Summaries**: View a summary of work shifts for a given time range for each employee.
+3. **Fullscreen Mode**: Optimized for kiosk-style deployments with a fullscreen mode.
+
+## Getting Started
+
+### Prerequisites
+
+1. Docker and Docker Compose.
+2. Node.js (for development purposes)
+
+### Setup
+
+1. Clone this repository:
+git clone [URL of your repository]
+
+2. Navigate to the project folder:
+cd [your-project-name]
+
+3. Start the services:
+docker-compose up
+
+4. Open a browser and navigate to `http://localhost:8080` to access the client app.
 
 ## API Endpoints
 
-| Method | Endpoint                               | Description                                                                                                           |
-|--------|----------------------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| GET    | `/employees`                           | Fetches all employees.                                                                                                |
-| GET    | `/workshifts`                          | Fetches work shifts between the specified `startDate` and `endDate`.                                                  |
-| GET    | `/admins`                              | Fetches all admins.                                                                                                   |
-| GET    | `/employees/:employeeId/workshifts`    | Fetches work shifts of a specific employee between `startDate` and `endDate`.                                         |
-| POST   | `/employee`                            | Creates a new employee with given `name` and `code`.                                                                  |
-| POST   | `/employee/:employeeId/workshift`      | Ends the current work shift for a specified employee or starts a new one based on the provided `date`.                |
-| POST   | `/workshift`                           | Creates a new work shift for a specified `employeeId`, `startDate`, and `endDate`.                                     |
-| PUT    | `/employee/:employeeId`                | Updates the `name` and `code` for a specified employee.                                                               |
-| PUT    | `/workshift/:workshiftId`              | Updates the `startDate` and `endDate` for a specified work shift.                                                      |
-| DELETE | `/workshift/:workshiftId`              | Deletes a specified work shift.                                                                                       |
+- `/employees`: Retrieve a list of all employees.
+- `/employees/:employeeId/workshifts`: Get work shifts of an employee for a specific date range.
+- `/employees/:employeeId/punch`: Record a work shift start/end for an employee.
 
+## Contributing
 
-## Data Models
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-### Employee
+## License
 
-| Field       | Type         | Attributes                           |
-|-------------|--------------|--------------------------------------|
-| `id`        | `Int`        | `@id @default(autoincrement())`      |
-| `name`      | `String`     |                                      |
-| `code`      | `String`     | `@unique`                            |
-| `createdAt` | `DateTime`   | `@default(now())`                    |
-| `workShifts`| `WorkShift[]`|                                      |
-
-### WorkShift
-
-| Field       | Type         | Attributes                           |
-|-------------|--------------|--------------------------------------|
-| `id`        | `Int`        | `@id @default(autoincrement())`      |
-| `employeeId`| `Int`        |                                      |
-| `start`     | `DateTime`   |                                      |
-| `end`       | `DateTime?`  |                                      |
-| `employee`  | `Employee`   | `@relation(fields: [employeeId], references: [id])`|
-
-### Admin
-
-| Field       | Type         | Attributes                           |
-|-------------|--------------|--------------------------------------|
-| `id`        | `Int`        | `@id @default(autoincrement())`      |
-| `name`      | `String`     |                                      |
-| `email`     | `String`     | `@unique`                            |
-| `password`  | `String`     |                                      |
-| `createdAt` | `DateTime`   | `@default(now())`                    |
+[MIT](https://choosealicense.com/licenses/mit/)
