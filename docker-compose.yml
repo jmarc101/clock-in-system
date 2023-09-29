@@ -1,23 +1,15 @@
 version: '3.8'
 services:
-  postgres:
-    image: 'postgres:16rc1-alpine3.18'
-    environment:
-      - POSTGRES_PASSWORD=martin_admin
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-    restart: always
-
   server:
     build:
       dockerfile: Dockerfile
       context: ./server
     environment:
-      - DATABASE_URL=postgresql://postgres:martin_admin@postgres:5432/postgres
+      - DATABASE_URL=file:/app/data/mydb.sqlite
     ports:
       - 4000:4000
-    depends_on:
-      - postgres
+    volumes:
+      - ./data:/app/data  # This mounts the local data directory to /app/data in the container
     restart: always
 
   client:
@@ -35,12 +27,13 @@ services:
       dockerfile: Dockerfile.prisma
       context: ./server
     environment:
-      - DATABASE_URL=postgresql://postgres:martin_admin@postgres:5432/postgres
+      - DATABASE_URL=file:/app/data/mydb.sqlite
     ports:
       - 5555:5555
+    volumes:
+      - ./data:/app/data  # This mounts the local data directory to /app/data in the container
+
     depends_on:
       - server
     restart: always
 
-volumes:
-   postgres-data:
