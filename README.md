@@ -26,15 +26,25 @@ The client provides a user-friendly interface to record work shifts, view summar
 ### Setup
 
 1. Clone this repository:
-git clone [URL of your repository]
+```
+git clone https://github.com/jmarc101/clock-in-system
+```
 
 2. Navigate to the project folder:
-cd [your-project-name]
+```
+cd clock-in-system
+```
 
-3. Start the services:
-docker-compose up
+3. *First Time Setup*
+ ```
+ cd server && npx prisma generate
+ ```
 
-4. Open a browser and navigate to `http://localhost:8080` to access the client app.
+4. Start the services:
+```
+cd .. && docker-compose up
+```
+5. Open a browser and navigate to [http://localhost:8080](http://localhost:8080) to access the client app.
 
 ## API Endpoints
 
