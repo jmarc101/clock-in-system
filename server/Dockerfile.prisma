@@ -1,5 +1,8 @@
 FROM node:20.7.0-slim
 
+# Required for prisma binary used  
+RUN apt-get update && apt-get install -y openssl
+
 WORKDIR /app
 
 COPY ./package.json ./package-lock.json ./
@@ -8,4 +11,3 @@ RUN npm install
 COPY . .
 
 CMD ["npx", "prisma", "studio", "--port", "5555"]
-

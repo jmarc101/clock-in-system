@@ -15,6 +15,7 @@ The client provides a user-friendly interface to record work shifts, view summar
 1. **Punch-In/Out System**: Employees can easily clock-in and clock-out using their unique codes.
 2. **Work Shift Summaries**: View a summary of work shifts for a given time range for each employee.
 3. **Fullscreen Mode**: Optimized for kiosk-style deployments with a fullscreen mode.
+4. **Database Interface**: Database GUI used off `port:5555` for easy data manipulation. 
 
 ## Getting Started
 
