@@ -9,7 +9,7 @@ services:
     ports:
       - 4000:4000
     volumes:
-      - ./data:/app/data  # This mounts the local data directory to /app/data in the container
+      - ./server/data:/app/data  # This mounts the local data directory to /app/data in the container
     restart: always
 
   client:
@@ -31,7 +31,7 @@ services:
     ports:
       - 5555:5555
     volumes:
-      - ./data:/app/data  # This mounts the local data directory to /app/data in the container
+      - ./server/data:/app/data  # This mounts the local data directory to /app/data in the container
 
     depends_on:
       - server

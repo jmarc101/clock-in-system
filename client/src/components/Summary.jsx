@@ -21,10 +21,12 @@ const calculateListItemHoursPerWorkshift = workshift => {
 
     const minutesWorked = (new Date(workshift.end) - new Date(workshift.start)) / 60000;
     const dateInString = new Date(workshift.start).toDateString();
+    const start = new Date(workshift.start).toLocaleTimeString();
+    const end = new Date(workshift.end).toLocaleTimeString();
     const hours = Math.floor(minutesWorked / 60);
     const minutes = Math.floor(minutesWorked % 60);
 
-    return `${dateInString}: ${hours} hours and ${minutes} minutes`;
+    return `${dateInString}, ${start} - ${end}: ${hours} hours and ${minutes} minutes`;
 };
 
 const calculateTotalHoursForEmplyee = workshifts => {
