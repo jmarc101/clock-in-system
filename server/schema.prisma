@@ -11,6 +11,7 @@ datasource db {
 
 model Employee {
     id        Int      @id @default(autoincrement())
+    payrollNumber String @unique
     name      String
     code      String   @unique
     createdAt DateTime @default(now())
