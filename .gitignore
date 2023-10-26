@@ -1,3 +1,5 @@
 .private
 .env
 *.sqlite
+node_modules/
+

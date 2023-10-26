@@ -4,7 +4,6 @@ import { Fab } from "@mui/material";
 import BackspaceIcon from "@mui/icons-material/Backspace";
 import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
 import { punchEmployee, getEmployees } from "../services/api";
-import useWindowFullscreenToggle from "../hooks/useWindowFullScreenToggle";
 
 function NumberFab({ number, onNumberClick }) {
     return (
@@ -15,7 +14,6 @@ function NumberFab({ number, onNumberClick }) {
 }
 
 function PunchBox() {
-    const { isFullscreen, toggleFullscreen } = useWindowFullscreenToggle();
     const [punchCode, setPunchCode] = useState("");
     const [employees, setEmployees] = useState([{}]);
     const [message, setMessage] = useState("");
@@ -32,11 +30,6 @@ function PunchBox() {
 
     const onOkClick = async () => {
         const emp = employees.find(e => e.code === punchCode);
-        if (punchCode === "99" && isFullscreen) {
-            toggleFullscreen();
-            setPunchCode("");
-            return;
-        }
 
         if (!emp) {
             setMessage("Code Invalide");
@@ -96,21 +89,10 @@ function PunchBox() {
 }
 
 function PunchInScreen() {
-    const { isFullscreen, toggleFullscreen } = useWindowFullscreenToggle();
 
     return (
         <div className="punch-in-screen">
             <PunchBox />
-            {!isFullscreen && (
-                <Fab
-                    variant="extended"
-                    color="primary"
-                    onClick={toggleFullscreen}
-                    className="fullscreen-btn"
-                >
-                    <span>Fullscreen</span>
-                </Fab>
-            )}
         </div>
     );
 }
