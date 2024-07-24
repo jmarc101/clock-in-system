@@ -13,7 +13,7 @@ COPY . .
 RUN npm run build
 
 # Step 2 - Serve the app
-FROM nginx:stable-alpine
+FROM nginx:1.26.1-alpine3.19
 COPY --from=build /app/build /usr/share/nginx/html
 
 #This is for the routing to work. Custom nginx config
